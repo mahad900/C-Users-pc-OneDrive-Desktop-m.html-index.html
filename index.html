@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HackLab | Learn Ethical Hacking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #00ff99;
+      text-shadow: 0 0 8px #00ff99aa;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem 0;
+      box-shadow: inset 0 -2px 6px #00ff9980;
+      user-select: none;
+    }
+    nav a {
+      color: #00ff99;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -5px;
+      width: 100%; height: 2px;
+      background: #00ff99;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+      border-radius: 2px;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #00cc77;
+      text-shadow: 0 0 8px #00cc77bb;
+      outline: none;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 4rem;
+    }
+    h2 {
+      border-bottom: 3px solid #00ff99;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 0 0 6px #00ff9977;
+    }
+    .tutorial-list {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .tutorial-list li {
+      background: rgba(0,255,153,0.1);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #00ff99;
+      box-shadow: 0 0 15px #00ff9960;
+      transition: background 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .tutorial-list li:hover,
+    .tutorial-list li:focus {
+      background: #00ff9966;
+      color: #0a0a0a;
+      transform: scale(1.05);
+      outline: none;
+    }
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .tool-card {
+      background: rgba(0,255,153,0.15);
+      border-radius: 16px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 0 20px #00ff9980;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      color: #0a0a0a;
+      user-select: none;
+    }
+    .tool-card:hover,
+    .tool-card:focus {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px #00ff99cc;
+      outline: none;
+    }
+    .tool-card h3 {
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      color: #004d24;
+    }
+    .tool-card p {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #002a12;
+    }
+    #challengeForm {
+      background: rgba(0,255,153,0.15);
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      max-width: 520px;
+      margin: 0 auto;
+      box-shadow: 0 0 30px #00ff9960;
+      user-select: none;
+    }
+    #challengeForm label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: #004d24;
+      font-size: 1.1rem;
+    }
+    #challengeForm input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      box-shadow: inset 0 0 8px #00ff9966;
+      transition: box-shadow 0.3s ease;
+    }
+    #challengeForm input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 12px #00ff99cc;
+    }
+    #challengeForm button {
+      width: 100%;
+      padding: 14px 0;
+      background: #00ff99;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #0a0a0a;
+      box-shadow: 0 6px 14px #00ff9966;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    #challengeForm button:hover,
+    #challengeForm button:focus {
+      background: #00cc77;
+      box-shadow: 0 8px 20px #00cc7788;
+      outline: none;
+    }
+    #challengeResult {
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      min-height: 1.2em;
+      color: #004d24;
+      user-select: text;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 1.2rem 1rem;
+      background: rgba(0,0,0,0.3);
+      color: #88ffaa;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: inset 0 2px 6px #00ff9955;
+    }
+    @media (max-width: 600px) {
+      nav {
+        gap: 1.5rem;
+        font-size: 1rem;
+      }
+      .tutorial-list {
+        grid-template-columns: 1fr;
+      }
+      .tools {
+        grid-template-columns: 1fr;
+      }
+      #challengeForm {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>HackLab</header>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#tutorials">Tutorials</a>
+    <a href="#tools">Tools</a>
+    <a href="#challenge">Challenge</a>
+  </nav>
+
+  <main>
+    <section id="tutorials" tabindex="0" aria-label="Ethical hacking tutorials">
+      <h2>🧑‍💻 Tutorials</h2>
+      <ul class="tutorial-list">
+        <li tabindex="0" title="Introduction to Ethical Hacking">Intro to Ethical Hacking</li>
+        <li tabindex="0" title="Basics of Network Security">Basics of Network Security</li>
+        <li tabindex="0" title="Understanding SQL Injection">Understanding SQL Injection</li>
+        <li tabindex="0" title="Password Cracking Techniques">Password Cracking Techniques</li>
+        <li tabindex="0" title="Setting Up a Penetration Testing Lab">Setting Up a Pen Testing Lab</li>
+      </ul>
+    </section>
+
+    <section id="tools" tabindex="0" aria-label="List of common hacking tools">
+      <h2>🛠️ Tools</h2>
+      <div class="tools">
+        <article class="tool-card" tabindex="0" aria-label="Nmap network scanner tool">
+          <h3>Nmap</h3>
+          <p>Network discovery and security auditing tool for scanning and enumeration.</p>
+        </article>
+        <article class="tool-card" tabindex="0" aria-label="Wireshark network protocol analyzer">
+          <h3>Wireshark</h3>
+          <p>Network protocol analyzer for packet capturing and in-depth analysis.</p>
+        </article>
+        <article class="tool-card" tabindex="0" aria-label="Metasploit penetration testing framework">
+          <h3>Metasploit</h3>
+          <p>Powerful penetration testing framework to develop and execute exploits.</p>
+        </article>
+        <article class="tool-card" tabindex="0" aria-label="John the Ripper password cracker">
+          <h3>John the Ripper</h3>
+          <p>Popular password cracking tool used for testing password strength.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="challenge" tabindex="0" aria-label="Interactive hacking challenge">
+      <h2>🔐 Challenge</h2>
+      <p style="max-width: 500px; margin: 0 auto 1rem; font-weight: 600; text-align:center;">
+        Crack this simple cipher to reveal the secret word:
+      </p>
+      <pre style="background:#003311; padding: 1rem; border-radius: 12px; max-width: 500px; margin: 0 auto 1rem; user-select:text; font-weight:700; font-size:1.1rem;">Uifsf jt b tfdsfu xpset</pre>
+      <form id="challengeForm" aria-describedby="challengeResult" autocomplete="off">
+        <label for="answer">Your answer:</label>
+        <input
+          type="text"
+          id="answer"
+          name="answer"
+          required
+          placeholder="Enter decrypted text"
+          aria-required="true"
+        />
+        <button type="submit">Submit</button>
+        <div id="challengeResult" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 HackLab | Learn Ethical Hacking Safely and Legally
+  </footer>
+
+  <script>
+    const challengeForm = document.getElementById('challengeForm');
+    const challengeResult = document.getElementById('challengeResult');
+
+    challengeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const answer = challengeForm.answer.value.trim().toLowerCase();
+
+      const correctAnswer = "there is a secret word";
+
+      if (answer === correctAnswer) {
+        challengeResult.style.color = '#00ff99';
+        challengeResult.textContent = '✅ Correct! Well done!';
+      } else {
+        challengeResult.style.color = '#ff5555';
+        challengeResult.textContent = '❌ Incorrect, try again.';
+      }
+    });
+  </script>
+</body>
+</html>
